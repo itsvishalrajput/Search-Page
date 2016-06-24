@@ -25,15 +25,26 @@ public class ProductModel {
 		System.out.println("DB Connected");
 		return con;
 	}
-	public ArrayList<ProductDTO> getProducts(String brand) throws SQLException{
+	public String methodName(){
+		
+		String SQLQuery = "";
+		return SQLQuery;
+	}
+	public ArrayList<ProductDTO> getProducts(ProductDTO obj,int filter) throws SQLException{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String SQLQuery = "";
+		if(filter == 1){
+			SQLQuery = "order by ProductPrice";
+		}else if(filter == 2){
+			SQLQuery = "order by ProductPopularity DESC";
+		}
 		ArrayList<ProductDTO> productList = new ArrayList<>();
 		try {
 			con = this.establishConnection();
-			pstmt = con.prepareStatement("select * from items.products where ProductBrand = ?");
-			pstmt.setString(1, brand);
+			pstmt = con.prepareStatement("select * from items.products where ProductBrand = ? "+ SQLQuery);
+			pstmt.setString(1, obj.getBrand());
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				ProductDTO pdto = new ProductDTO();
