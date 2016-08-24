@@ -25,11 +25,6 @@ public class ProductModel {
 		System.out.println("DB Connected");
 		return con;
 	}
-	public String methodName(){
-		
-		String SQLQuery = "";
-		return SQLQuery;
-	}
 	public ArrayList<ProductDTO> getProducts(ProductDTO obj,int filter) throws SQLException{
 		Connection con = null;
 		PreparedStatement pstmt = null;
